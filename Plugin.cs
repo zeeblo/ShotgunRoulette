@@ -10,15 +10,15 @@ using System.Collections;
 
 namespace ShotgunRoulette
 {
-    [BepInPlugin(modGUID, modName, modVersion)]
+    [BepInPlugin(MOD_GUID, MOD_Name, MOD_Version)]
     public class Plugin : BaseUnityPlugin
     {
-        private const string modGUID = "ShotgunRoulette.zeeblo.dev";
-        private const string modName = "zeeblo.ShotgunRoulette";
-        private const string modVersion = "0.1.0";
-        private readonly Harmony _harmony = new(modGUID);
+        private const string MOD_GUID = "ShotgunRoulette.zeeblo.dev";
+        private const string MOD_Name = "zeeblo.ShotgunRoulette";
+        private const string MOD_Version = "0.1.0";
+        private readonly Harmony _harmony = new(MOD_GUID);
         public static Plugin? instance;
-        internal static ManualLogSource mls = BepInEx.Logging.Logger.CreateLogSource(modGUID);
+        internal static ManualLogSource mls = BepInEx.Logging.Logger.CreateLogSource(MOD_GUID);
 
 
 
