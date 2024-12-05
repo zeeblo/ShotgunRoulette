@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>netstandard2.1</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<AssemblyName>zeeblo.ShotgunRoulette</AssemblyName>
+		<Product>ShotgunRoulette</Product>
+		<Version>0.1.0</Version>
+		<LangVersion>latest</LangVersion>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="BepInEx.Core" Version="5.4.21" PrivateAssets="all" />
+		<PackageReference Include="BepInEx.Analyzers" Version="1.0.8" PrivateAssets="all" />
+		<PackageReference Include="BepInEx.PluginInfoProps" Version="2.1.0" />
+		<PackageReference Include="UnityEngine.Modules" Version="2022.3.9" PrivateAssets="all" />
+		<PackageReference Include="LethalCompany.GameLibs.Steam" Version="64.0.0-ngd.0" Publicize="true" PrivateAssets="all" />
+	</ItemGroup>
+</Project>
