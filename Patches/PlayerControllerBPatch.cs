@@ -2,6 +2,7 @@
 using System.Reflection;
 using GameNetcodeStuff;
 using HarmonyLib;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace ShotgunRoulette.Patches
@@ -21,10 +22,6 @@ namespace ShotgunRoulette.Patches
                 Plugin.SpawnShotgun();
             }
             
-            if (Keyboard.current.hKey.wasPressedThisFrame)
-            {
-                Plugin.ToggleRoulette(__instance);
-            }
         }
 
 
@@ -39,6 +36,7 @@ namespace ShotgunRoulette.Patches
             if (Plugin.rouletteEnabled == false) return;
             if (__instance.currentlyHeldObjectServer == null) return;
             if (CanUseItem == false) return;
+
 
             UnityEngine.Vector3 playerPos = __instance.transform.position;
 

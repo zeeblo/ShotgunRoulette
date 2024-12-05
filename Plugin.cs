@@ -8,6 +8,8 @@ using Unity.Netcode;
 using UnityEngine.SceneManagement;
 using System.Collections;
 using GameNetcodeStuff;
+using BepInEx.Configuration;
+using ShotgunRoulette.Players;
 
 namespace ShotgunRoulette
 {
@@ -21,13 +23,15 @@ namespace ShotgunRoulette
         public static Plugin? instance;
         internal static ManualLogSource mls = BepInEx.Logging.Logger.CreateLogSource(MOD_GUID);
         public static bool rouletteEnabled = false;
-
+        public static ConfigEntry<string>? rouletteBind;
 
 
         private void Awake()
         {
+            rouletteBind = Config.Bind("Gameplay Controls", "Roulette", "h", "Point the gun at yourself");
             PatchAll();
-            Plugin.mls.LogInfo("Hello World");
+            Controls.InitControls();
+
         }
 
 
@@ -55,25 +59,21 @@ namespace ShotgunRoulette
             Plugin.mls.LogInfo($">>> roulette_b4: {Plugin.rouletteEnabled}");
             Plugin.mls.LogInfo($">>> roulette_tstb4: {!Plugin.rouletteEnabled}");
 
+            if (__instance.currentlyHeldObjectServer == null) return false;
+            if (!__instance.currentlyHeldObjectServer.itemProperties.itemName.ToLower().Contains("shotgun")) return false;
+
             Plugin.rouletteEnabled = !Plugin.rouletteEnabled;
             if (Plugin.rouletteEnabled)
             {
-                if (__instance.currentlyHeldObjectServer != null && __instance.currentlyHeldObjectServer.itemProperties.itemName.ToLower().Contains("shotgun"))
-                {
-                    __instance.currentlyHeldObjectServer.transform.localScale = new UnityEngine.Vector3(0.28f, 0.28f, -0.28f);
-                }
-                Plugin.mls.LogInfo("<><>in enabled roulette");
+                __instance.currentlyHeldObjectServer.transform.localScale = new UnityEngine.Vector3(0.28f, 0.28f, -0.28f);
+                Plugin.mls.LogInfo("<><>in ENABLED roulette");
             }
             else
             {
-                if (__instance.currentlyHeldObjectServer != null && __instance.currentlyHeldObjectServer.itemProperties.itemName.ToLower().Contains("shotgun"))
-                {
-                    __instance.currentlyHeldObjectServer.transform.localScale = new UnityEngine.Vector3(0.28f, 0.28f, 0.28f);
-                }
+                __instance.currentlyHeldObjectServer.transform.localScale = new UnityEngine.Vector3(0.28f, 0.28f, 0.28f);
                 Plugin.mls.LogInfo("<><>in DISABLED roulette");
             }
-            Plugin.mls.LogInfo($">>> roulette_a4: {Plugin.rouletteEnabled}");
-            Plugin.mls.LogInfo($">>> roulette_tsta4: {!Plugin.rouletteEnabled}");
+
             return Plugin.rouletteEnabled;
         }
 
