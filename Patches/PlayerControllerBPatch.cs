@@ -38,9 +38,9 @@ namespace ShotgunRoulette.Patches
             if (CanUseItem == false) return;
 
 
-            UnityEngine.Vector3 playerPos = __instance.transform.position;
+            //UnityEngine.Vector3 playerPos = __instance.transform.position;
 
-            __instance.KillPlayer(playerPos);
+            //__instance.KillPlayer(playerPos);
         }
 
     }

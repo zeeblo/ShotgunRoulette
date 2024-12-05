@@ -41,7 +41,28 @@ namespace ShotgunRoulette
             _harmony.PatchAll(typeof(PlayerControllerBPatch));
             _harmony.PatchAll(typeof(NutcrackerEnemyAIPatch));
             _harmony.PatchAll(typeof(HUDManagerPatch));
+            _harmony.PatchAll(typeof(ShotgunItemPatch));
         }
+
+
+        public static bool ToggleRoulette(PlayerControllerB __instance)
+        {
+            if (__instance.currentlyHeldObjectServer == null) return false;
+            if (!__instance.currentlyHeldObjectServer.itemProperties.itemName.ToLower().Contains("shotgun")) return false;
+
+            Plugin.rouletteEnabled = !Plugin.rouletteEnabled;
+            if (Plugin.rouletteEnabled)
+            {
+                __instance.currentlyHeldObjectServer.transform.localScale = new UnityEngine.Vector3(0.28f, 0.28f, -0.28f);
+            }
+            else
+            {
+                __instance.currentlyHeldObjectServer.transform.localScale = new UnityEngine.Vector3(0.28f, 0.28f, 0.28f);
+            }
+
+            return Plugin.rouletteEnabled;
+        }
+
 
 
         public static void SpawnShotgun()
@@ -54,28 +75,6 @@ namespace ShotgunRoulette
 
         }
 
-        public static bool ToggleRoulette(PlayerControllerB __instance)
-        {
-            Plugin.mls.LogInfo($">>> roulette_b4: {Plugin.rouletteEnabled}");
-            Plugin.mls.LogInfo($">>> roulette_tstb4: {!Plugin.rouletteEnabled}");
-
-            if (__instance.currentlyHeldObjectServer == null) return false;
-            if (!__instance.currentlyHeldObjectServer.itemProperties.itemName.ToLower().Contains("shotgun")) return false;
-
-            Plugin.rouletteEnabled = !Plugin.rouletteEnabled;
-            if (Plugin.rouletteEnabled)
-            {
-                __instance.currentlyHeldObjectServer.transform.localScale = new UnityEngine.Vector3(0.28f, 0.28f, -0.28f);
-                Plugin.mls.LogInfo("<><>in ENABLED roulette");
-            }
-            else
-            {
-                __instance.currentlyHeldObjectServer.transform.localScale = new UnityEngine.Vector3(0.28f, 0.28f, 0.28f);
-                Plugin.mls.LogInfo("<><>in DISABLED roulette");
-            }
-
-            return Plugin.rouletteEnabled;
-        }
 
         /// <summary>
         /// Removes extra NutCracker(s) that may have spawned
