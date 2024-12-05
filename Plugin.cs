@@ -35,6 +35,7 @@ namespace ShotgunRoulette
         {
             _harmony.PatchAll(typeof(PlayerControllerBPatch));
             _harmony.PatchAll(typeof(NutcrackerEnemyAIPatch));
+            _harmony.PatchAll(typeof(HUDManagerPatch));
         }
 
 
