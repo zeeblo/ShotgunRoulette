@@ -33,6 +33,59 @@ namespace ShotgunRoulette.Patches
         }
 
 
+        /// <summary>
+        /// Reset gun rotation when player dies
+        /// </summary>
+        [HarmonyPatch(nameof(PlayerControllerB.KillPlayer))]
+        [HarmonyPrefix]
+        private static void KillPlayerPatch(PlayerControllerB __instance)
+        {
+            Plugin.gunIsOnFace = false;
+        }
+
+
+        [HarmonyPatch(nameof(PlayerControllerB.ScrollMouse_performed))]
+        [HarmonyPrefix]
+        private static void ScrollPatch(PlayerControllerB __instance)
+        {
+            if (Plugin.gunIsOnFace)
+            {
+                Plugin.ToggleGunRotation(__instance);
+            }
+        }
+
+
+        [HarmonyPatch(nameof(PlayerControllerB.SwitchToItemSlot))]
+        [HarmonyPrefix]
+        private static void SwitchToItemSlotPatch(PlayerControllerB __instance)
+        {
+            if (Plugin.gunIsOnFace)
+            {
+                Plugin.ToggleGunRotation(__instance);
+            }
+        }
+
+
+        [HarmonyPatch(nameof(PlayerControllerB.DiscardHeldObject))]
+        [HarmonyPrefix]
+        private static void DiscardHeldObjectPatch(PlayerControllerB __instance)
+        {
+            if (Plugin.gunIsOnFace)
+            {
+                Plugin.ToggleGunRotation(__instance);
+            }
+        }
+
+        [HarmonyPatch(nameof(PlayerControllerB.OnDisable))]
+        [HarmonyPrefix]
+        private static void OnDisablePatch(PlayerControllerB __instance)
+        {
+            if (Plugin.gunIsOnFace)
+            {
+                Plugin.ToggleGunRotation(__instance);
+            }
+        }
+
 
     }
 }

@@ -43,7 +43,6 @@ namespace ShotgunRoulette.Patches
                     {
                         RotatePlayer();
                         localplayer.DamagePlayer(Plugin.randomDamage, causeOfDeath: CauseOfDeath.Gunshots);
-                        Plugin.gunIsOnFace = false;
                         return true;
                     }
 
@@ -53,9 +52,7 @@ namespace ShotgunRoulette.Patches
 
                 RotatePlayer();
                 localplayer.DamagePlayer(Plugin.randomDamage, causeOfDeath: CauseOfDeath.Gunshots);
-                Plugin.gunIsOnFace = false;
-
-
+                
             }
 
             return true;
