@@ -10,7 +10,6 @@ namespace ShotgunRoulette.Patches
     [HarmonyPatch(typeof(PlayerControllerB))]
     internal class PlayerControllerBPatch
     {
-
         [HarmonyPatch(nameof(PlayerControllerB.Update))]
         [HarmonyPostfix]
         private static void UpdatePatch(PlayerControllerB __instance)
@@ -26,7 +25,13 @@ namespace ShotgunRoulette.Patches
                 HUDManager.Instance.ShakeCamera(ScreenShakeType.Small);
             }
             
+            if (__instance.currentlyHeldObjectServer != null && __instance.currentlyHeldObjectServer.itemProperties.itemName.ToLower().Contains("shotgun"))
+            {
+                string safety = (__instance.currentlyHeldObjectServer.GetComponent<ShotgunItem>().safetyOn) ? "off" : "on";
+                HUDManager.Instance.controlTipLines.Last().text = $"Turn Safety {safety} : [Q] \n Aim at you : [H]";
+            }
         }
+
 
 
         [HarmonyPatch(nameof(PlayerControllerB.ActivateItem_performed))]

@@ -23,12 +23,12 @@ namespace ShotgunRoulette
         public static Plugin? instance;
         internal static ManualLogSource mls = BepInEx.Logging.Logger.CreateLogSource(MOD_GUID);
         public static bool rouletteEnabled = false;
-        public static ConfigEntry<string>? rouletteBind;
+        public static ConfigEntry<string>? gunRotationBind;
 
 
         private void Awake()
         {
-            rouletteBind = Config.Bind("Gameplay Controls", "Roulette", "h", "Point the gun at yourself");
+            gunRotationBind = Config.Bind("Gameplay Controls", "Gun Rotation", "h", "Point the gun at yourself");
             PatchAll();
             Controls.InitControls();
 
@@ -40,12 +40,12 @@ namespace ShotgunRoulette
         {
             _harmony.PatchAll(typeof(PlayerControllerBPatch));
             _harmony.PatchAll(typeof(NutcrackerEnemyAIPatch));
-            _harmony.PatchAll(typeof(HUDManagerPatch));
+            //_harmony.PatchAll(typeof(HUDManagerPatch));
             _harmony.PatchAll(typeof(ShotgunItemPatch));
         }
 
 
-        public static bool ToggleRoulette(PlayerControllerB __instance)
+        public static bool ToggleGunRotation(PlayerControllerB __instance)
         {
             if (__instance.currentlyHeldObjectServer == null) return false;
             if (!__instance.currentlyHeldObjectServer.itemProperties.itemName.ToLower().Contains("shotgun")) return false;

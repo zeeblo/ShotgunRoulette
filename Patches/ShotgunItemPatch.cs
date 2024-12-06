@@ -22,7 +22,7 @@ namespace ShotgunRoulette.Patches
             {
                 return false;
             }
-            if (Plugin.rouletteEnabled)
+            if (Plugin.rouletteEnabled && __instance.shellsLoaded >= 1)
             {
                 GameNetworkManager.Instance.localPlayerController.thisPlayerBody.transform.Rotate(0, 180, 0);
                 GameNetworkManager.Instance.localPlayerController.gameplayCamera.transform.localEulerAngles = new UnityEngine.Vector3(0, 0, GameNetworkManager.Instance.localPlayerController.gameplayCamera.transform.localEulerAngles.z);

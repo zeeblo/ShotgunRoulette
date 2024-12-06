@@ -12,24 +12,24 @@ namespace ShotgunRoulette.Players
 
         public static void InitControls()
         {
-            if (Plugin.rouletteBind == null)
+            if (Plugin.gunRotationBind == null)
             {
                 return;
             }
 
-            InputAction roulette = userControls.AddAction("roulette", InputActionType.Button, binding: "<Keyboard>/" + Plugin.rouletteBind.Value);
-            roulette.performed += Roulette_performed;
+            InputAction gunRotation = userControls.AddAction("roulette", InputActionType.Button, binding: "<Keyboard>/" + Plugin.gunRotationBind.Value);
+            gunRotation.performed += GunRotation_performed;
             userControls.Enable();
 
-            rouletteRef = InputActionReference.Create(roulette);
+            rouletteRef = InputActionReference.Create(gunRotation);
         }
 
 
-        private static void Roulette_performed(InputAction.CallbackContext context)
+        private static void GunRotation_performed(InputAction.CallbackContext context)
         {
             if (GameNetworkManager.Instance.localPlayerController != null)
             {
-                Plugin.ToggleRoulette(GameNetworkManager.Instance.localPlayerController);
+                Plugin.ToggleGunRotation(GameNetworkManager.Instance.localPlayerController);
             }
             
         }

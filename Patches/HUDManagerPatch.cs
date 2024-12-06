@@ -14,9 +14,12 @@ namespace ShotgunRoulette.Patches
         [HarmonyPrefix]
         private static bool UITips(HUDManager __instance, string[] allLines, bool holdingItem = false, Item? itemProperties = null)
         {
+
             if (holdingItem && itemProperties != null)
             {
                 __instance.controlTipLines[0].text = "Drop " + itemProperties.itemName + " : [G]";
+                Array.Resize(ref allLines, allLines.Length + 1);
+                allLines[allLines.Length - 1] = "Roulette : [H]";
 
             }
             if (allLines == null)
@@ -48,27 +51,15 @@ namespace ShotgunRoulette.Patches
                 __instance.controlTipLines[i + num].text = text;
             }
 
-
+            /*
             if (itemProperties != null && itemProperties.itemName.ToLower().Contains("shotgun"))
             {
                 __instance.controlTipLines.Last().text = $"{HUDManager.Instance.controlTipLines.Last().text} \n Roulette : [H]";
             }
-
+            */
             return false;
         }
 
 
-        [HarmonyPatch(nameof(HUDManager.ChangeControlTip))]
-        [HarmonyPostfix]
-        private static void ChangeUITips(HUDManager __instance)
-        {
-
-            if (GameNetworkManager.Instance.localPlayerController.currentlyHeldObjectServer != null &&
-                GameNetworkManager.Instance.localPlayerController.currentlyHeldObjectServer.itemProperties.itemName.ToLower().Contains("shotgun"))
-            {
-                __instance.controlTipLines.Last().text = $"{HUDManager.Instance.controlTipLines.Last().text} \n Roulette : [H]";
-            }
-
-        }
     }
 }
