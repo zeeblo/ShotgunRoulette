@@ -1,8 +1,5 @@
-﻿using System.Numerics;
-using System.Reflection;
-using GameNetcodeStuff;
+﻿using GameNetcodeStuff;
 using HarmonyLib;
-using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace ShotgunRoulette.Patches
@@ -33,25 +30,6 @@ namespace ShotgunRoulette.Patches
             }
         }
 
-
-
-        [HarmonyPatch(nameof(PlayerControllerB.ActivateItem_performed))]
-        [HarmonyPostfix]
-        private static void Roulette(PlayerControllerB __instance)
-        {
-            // Check if Item is first usable
-            MethodInfo CanUseItemRaw = typeof(PlayerControllerB).GetMethod("CanUseItem", BindingFlags.NonPublic | BindingFlags.Instance);
-            bool CanUseItem = (bool)CanUseItemRaw.Invoke(__instance, null);
-
-            if (StartOfRound.Instance.inShipPhase) return;
-            if (Plugin.gunIsOnFace == false) return;
-            if (__instance.currentlyHeldObjectServer == null) return;
-            if (CanUseItem == false) return;
-
-            __instance.DamagePlayer(100, causeOfDeath: CauseOfDeath.Gunshots);
-            Plugin.gunIsOnFace = false;
-
-        }
 
 
     }
