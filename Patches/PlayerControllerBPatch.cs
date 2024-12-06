@@ -11,15 +11,19 @@ namespace ShotgunRoulette.Patches
     internal class PlayerControllerBPatch
     {
 
-
         [HarmonyPatch(nameof(PlayerControllerB.Update))]
         [HarmonyPostfix]
         private static void UpdatePatch(PlayerControllerB __instance)
         {
 
-            if (Keyboard.current.digit1Key.wasPressedThisFrame)
+            if (Keyboard.current.jKey.wasPressedThisFrame)
             {
                 Plugin.SpawnShotgun();
+            }
+
+            if (Plugin.rouletteEnabled)
+            {
+                HUDManager.Instance.ShakeCamera(ScreenShakeType.Small);
             }
             
         }
@@ -33,15 +37,16 @@ namespace ShotgunRoulette.Patches
             MethodInfo CanUseItemRaw = typeof(PlayerControllerB).GetMethod("CanUseItem", BindingFlags.NonPublic | BindingFlags.Instance);
             bool CanUseItem = (bool)CanUseItemRaw.Invoke(__instance, null);
 
+            if (StartOfRound.Instance.inShipPhase) return;
             if (Plugin.rouletteEnabled == false) return;
             if (__instance.currentlyHeldObjectServer == null) return;
             if (CanUseItem == false) return;
 
+            __instance.DamagePlayer(100, causeOfDeath: CauseOfDeath.Gunshots);
+            Plugin.rouletteEnabled = false;
 
-            //UnityEngine.Vector3 playerPos = __instance.transform.position;
-
-            //__instance.KillPlayer(playerPos);
         }
+
 
     }
 }
