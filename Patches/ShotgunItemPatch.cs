@@ -26,12 +26,7 @@ namespace ShotgunRoulette.Patches
             {
                 PlayerControllerB localplayer = GameNetworkManager.Instance.localPlayerController;
 
-                // Forces player to look behind them so that when they shoot
-                // they dont kill the person infront of them
-                localplayer.thisPlayerBody.transform.Rotate(0, 180, 0);
-                localplayer.gameplayCamera.transform.localEulerAngles = new UnityEngine.Vector3(0, 0, localplayer.gameplayCamera.transform.localEulerAngles.z);
-
-                // Check if Item is first usable
+                // Check if Item is usable (eg. not on ladder)
                 MethodInfo CanUseItemRaw = typeof(PlayerControllerB).GetMethod("CanUseItem", BindingFlags.NonPublic | BindingFlags.Instance);
                 bool CanUseItem = (bool)CanUseItemRaw.Invoke(localplayer, null);
 
@@ -40,14 +35,43 @@ namespace ShotgunRoulette.Patches
                 if (localplayer.currentlyHeldObjectServer == null) return true;
                 if (CanUseItem == false) return true;
 
-                localplayer.DamagePlayer(100, causeOfDeath: CauseOfDeath.Gunshots);
+
+                if (PlayerControllerBPatch.rouletteMode)
+                {
+                    Plugin.mls.LogInfo(">>> Entering Roulette");
+                    if (Plugin.rouletteNumber == 1)
+                    {
+                        RotatePlayer();
+                        localplayer.DamagePlayer(Plugin.randomDamage, causeOfDeath: CauseOfDeath.Gunshots);
+                        Plugin.gunIsOnFace = false;
+                        return true;
+                    }
+
+                    __instance.gunAudio.PlayOneShot(__instance.noAmmoSFX);
+                    return false;
+                }
+
+                RotatePlayer();
+                localplayer.DamagePlayer(Plugin.randomDamage, causeOfDeath: CauseOfDeath.Gunshots);
                 Plugin.gunIsOnFace = false;
+
 
             }
 
             return true;
         }
 
+        /// <summary>
+        /// Forces player to look behind them so that when they shoot
+        /// they dont kill the person infront of them
+        /// </summary>
+        private static void RotatePlayer()
+        {
+            PlayerControllerB localplayer = GameNetworkManager.Instance.localPlayerController;
+            localplayer.thisPlayerBody.transform.Rotate(0, 180, 0);
+            localplayer.gameplayCamera.transform.localEulerAngles = new UnityEngine.Vector3(0, 0, localplayer.gameplayCamera.transform.localEulerAngles.z);
+
+        }
 
 
         [HarmonyPatch(nameof(ShotgunItem.Update))]

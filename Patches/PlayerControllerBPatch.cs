@@ -7,6 +7,8 @@ namespace ShotgunRoulette.Patches
     [HarmonyPatch(typeof(PlayerControllerB))]
     internal class PlayerControllerBPatch
     {
+        public static bool rouletteMode = false;
+
         [HarmonyPatch(nameof(PlayerControllerB.Update))]
         [HarmonyPostfix]
         private static void UpdatePatch(PlayerControllerB __instance)
@@ -24,7 +26,7 @@ namespace ShotgunRoulette.Patches
             
             if (__instance.currentlyHeldObjectServer != null && __instance.currentlyHeldObjectServer.itemProperties.itemName.ToLower().Contains("shotgun"))
             {
-                string options = (Plugin.gunIsOnFace) ? "\n Roulette : [RMB] \n Shoot Yourself : [LMB]" : "";
+                string options = (Plugin.gunIsOnFace) ? $"\n Roulette Mode ({rouletteMode}) : [RMB] \n Shoot Yourself : [LMB]" : "";
                 string safety = (__instance.currentlyHeldObjectServer.GetComponent<ShotgunItem>().safetyOn) ? "off" : "on";
                 HUDManager.Instance.controlTipLines.Last().text = $"Turn Safety {safety} : [Q] \n Aim at you : [H] " + options;
             }

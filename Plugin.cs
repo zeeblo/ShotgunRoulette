@@ -25,6 +25,9 @@ namespace ShotgunRoulette
         //public static bool rouletteEnabled = false;
         public static bool gunIsOnFace = false;
         public static ConfigEntry<string>? gunRotationBind;
+        public static System.Random random = new System.Random();
+        public static int rouletteNumber = random.Next(1, 5);
+        public static int randomDamage = random.Next(95, 145);
 
 
         private void Awake()
@@ -41,7 +44,7 @@ namespace ShotgunRoulette
         {
             _harmony.PatchAll(typeof(PlayerControllerBPatch));
             _harmony.PatchAll(typeof(NutcrackerEnemyAIPatch));
-            //_harmony.PatchAll(typeof(HUDManagerPatch));
+            _harmony.PatchAll(typeof(HUDManagerPatch));
             _harmony.PatchAll(typeof(ShotgunItemPatch));
         }
 
