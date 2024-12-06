@@ -22,7 +22,8 @@ namespace ShotgunRoulette
         private readonly Harmony _harmony = new(MOD_GUID);
         public static Plugin? instance;
         internal static ManualLogSource mls = BepInEx.Logging.Logger.CreateLogSource(MOD_GUID);
-        public static bool rouletteEnabled = false;
+        //public static bool rouletteEnabled = false;
+        public static bool gunIsOnFace = false;
         public static ConfigEntry<string>? gunRotationBind;
 
 
@@ -50,8 +51,8 @@ namespace ShotgunRoulette
             if (__instance.currentlyHeldObjectServer == null) return false;
             if (!__instance.currentlyHeldObjectServer.itemProperties.itemName.ToLower().Contains("shotgun")) return false;
 
-            Plugin.rouletteEnabled = !Plugin.rouletteEnabled;
-            if (Plugin.rouletteEnabled)
+            Plugin.gunIsOnFace = !Plugin.gunIsOnFace;
+            if (Plugin.gunIsOnFace)
             {
                 __instance.currentlyHeldObjectServer.transform.localScale = new UnityEngine.Vector3(0.28f, 0.28f, -0.28f);
             }
@@ -60,7 +61,7 @@ namespace ShotgunRoulette
                 __instance.currentlyHeldObjectServer.transform.localScale = new UnityEngine.Vector3(0.28f, 0.28f, 0.28f);
             }
 
-            return Plugin.rouletteEnabled;
+            return Plugin.gunIsOnFace;
         }
 
 

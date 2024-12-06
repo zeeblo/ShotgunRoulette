@@ -18,11 +18,11 @@ namespace ShotgunRoulette.Patches
         [HarmonyPrefix]
         private static bool ShootFace(ShotgunItem __instance)
         {
-            if (StartOfRound.Instance.inShipPhase && Plugin.rouletteEnabled)
+            if (StartOfRound.Instance.inShipPhase && Plugin.gunIsOnFace)
             {
                 return false;
             }
-            if (Plugin.rouletteEnabled && __instance.shellsLoaded >= 1)
+            if (Plugin.gunIsOnFace && __instance.shellsLoaded >= 1)
             {
                 GameNetworkManager.Instance.localPlayerController.thisPlayerBody.transform.Rotate(0, 180, 0);
                 GameNetworkManager.Instance.localPlayerController.gameplayCamera.transform.localEulerAngles = new UnityEngine.Vector3(0, 0, GameNetworkManager.Instance.localPlayerController.gameplayCamera.transform.localEulerAngles.z);
@@ -33,13 +33,13 @@ namespace ShotgunRoulette.Patches
 
 
         /// <summary>
-        /// Prevent user from shooting themself in space
+        /// Prevent user from shooting themself while in space
         /// </summary>
         [HarmonyPatch(nameof(ShotgunItem.ShootGun))]
         [HarmonyPrefix]
         private static bool ShootGunPatch(ShotgunItem __instance)
         {
-            if (StartOfRound.Instance.inShipPhase && Plugin.rouletteEnabled)
+            if (StartOfRound.Instance.inShipPhase && Plugin.gunIsOnFace)
             {
                 __instance.gunAudio.PlayOneShot(__instance.noAmmoSFX);
                 return false;

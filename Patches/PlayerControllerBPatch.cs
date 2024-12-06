@@ -20,15 +20,16 @@ namespace ShotgunRoulette.Patches
                 Plugin.SpawnShotgun();
             }
 
-            if (Plugin.rouletteEnabled)
+            if (Plugin.gunIsOnFace)
             {
                 HUDManager.Instance.ShakeCamera(ScreenShakeType.Small);
             }
             
             if (__instance.currentlyHeldObjectServer != null && __instance.currentlyHeldObjectServer.itemProperties.itemName.ToLower().Contains("shotgun"))
             {
+                string options = (Plugin.gunIsOnFace) ? "\n Roulette : [RMB] \n Shoot Yourself : [LMB]" : "";
                 string safety = (__instance.currentlyHeldObjectServer.GetComponent<ShotgunItem>().safetyOn) ? "off" : "on";
-                HUDManager.Instance.controlTipLines.Last().text = $"Turn Safety {safety} : [Q] \n Aim at you : [H]";
+                HUDManager.Instance.controlTipLines.Last().text = $"Turn Safety {safety} : [Q] \n Aim at you : [H] " + options;
             }
         }
 
@@ -43,12 +44,12 @@ namespace ShotgunRoulette.Patches
             bool CanUseItem = (bool)CanUseItemRaw.Invoke(__instance, null);
 
             if (StartOfRound.Instance.inShipPhase) return;
-            if (Plugin.rouletteEnabled == false) return;
+            if (Plugin.gunIsOnFace == false) return;
             if (__instance.currentlyHeldObjectServer == null) return;
             if (CanUseItem == false) return;
 
             __instance.DamagePlayer(100, causeOfDeath: CauseOfDeath.Gunshots);
-            Plugin.rouletteEnabled = false;
+            Plugin.gunIsOnFace = false;
 
         }
 
