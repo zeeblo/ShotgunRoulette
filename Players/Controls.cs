@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using ShotgunRoulette.UI;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace ShotgunRoulette.Players
@@ -22,6 +23,8 @@ namespace ShotgunRoulette.Players
             userControls.Enable();
 
             gunRotationRef = InputActionReference.Create(gunRotation);
+
+            KeybindsUI.AddCustomBinds();
         }
 
 
