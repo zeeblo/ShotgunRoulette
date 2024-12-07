@@ -34,7 +34,7 @@ namespace ShotgunRoulette.Patches
 
 
         /// <summary>
-        /// Reset gun rotation when player dies
+        /// Reset gun rotation & stops camera shake when player dies
         /// </summary>
         [HarmonyPatch(nameof(PlayerControllerB.KillPlayer))]
         [HarmonyPrefix]

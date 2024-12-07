@@ -1,4 +1,6 @@
-﻿using HarmonyLib;
+﻿using GameNetcodeStuff;
+using HarmonyLib;
+using UnityEngine;
 
 
 namespace ShotgunRoulette.Patches
@@ -21,6 +23,13 @@ namespace ShotgunRoulette.Patches
                 Plugin.mls.LogInfo($">>> Random Number: {Plugin.rouletteNumber} | Dmg: {Plugin.randomDamage}");
 
                 PlayerControllerBPatch.rouletteMode = !PlayerControllerBPatch.rouletteMode;
+
+                if (PlayerControllerBPatch.rouletteMode)
+                {
+                    PlayerControllerB localplayer = GameNetworkManager.Instance.localPlayerController;
+                    localplayer.currentlyHeldObjectServer.gameObject.GetComponent<AudioSource>().PlayOneShot(Plugin.SFX_revolverSpin, 0.6f);
+                }
+
                 return false;
             }
             return true;

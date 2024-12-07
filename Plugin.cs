@@ -11,6 +11,7 @@ using GameNetcodeStuff;
 using BepInEx.Configuration;
 using ShotgunRoulette.Players;
 using ShotgunRoulette.UI;
+using System.Reflection;
 
 namespace ShotgunRoulette
 {
@@ -25,11 +26,13 @@ namespace ShotgunRoulette
         internal static ManualLogSource mls = BepInEx.Logging.Logger.CreateLogSource(MOD_GUID);
         //public static bool rouletteEnabled = false;
         public static bool gunIsOnFace = false;
+        public static List<ConfigEntry<string>> AllHotkeys = new List<ConfigEntry<string>>();
         public static ConfigEntry<string>? gunRotationBind;
         public static System.Random random = new System.Random();
         public static int rouletteNumber = random.Next(1, 5);
         public static int randomDamage = random.Next(95, 145);
-        public static List<ConfigEntry<string>> AllHotkeys = new List<ConfigEntry<string>>();
+        public static string MainDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase).Replace("file:\\", "");
+        public static AudioClip? SFX_revolverSpin;
 
 
         private void Awake()
@@ -38,6 +41,7 @@ namespace ShotgunRoulette
             AllHotkeys.Add(gunRotationBind);
 
             PatchAll();
+            AssetLoader();
             Controls.InitControls();
 
         }
@@ -70,6 +74,16 @@ namespace ShotgunRoulette
             }
 
             return Plugin.gunIsOnFace;
+        }
+
+
+        private static void AssetLoader()
+        {
+            string BundleDir = MainDir + "\\Assets\\Assetbundles\\roulette";
+
+            AssetBundle myBundle = AssetBundle.LoadFromFile(BundleDir);
+            AudioClip revolverSpin = myBundle.LoadAsset<AudioClip>("revolver-spin.mp3");
+            SFX_revolverSpin = revolverSpin;
         }
 
 
