@@ -10,6 +10,7 @@ using System.Collections;
 using GameNetcodeStuff;
 using BepInEx.Configuration;
 using ShotgunRoulette.Players;
+using ShotgunRoulette.UI;
 
 namespace ShotgunRoulette
 {
@@ -46,6 +47,7 @@ namespace ShotgunRoulette
             _harmony.PatchAll(typeof(NutcrackerEnemyAIPatch));
             _harmony.PatchAll(typeof(HUDManagerPatch));
             _harmony.PatchAll(typeof(ShotgunItemPatch));
+            _harmony.PatchAll(typeof(KeybindsUI));
         }
 
 
