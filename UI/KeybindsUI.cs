@@ -47,6 +47,9 @@ namespace ShotgunRoulette.UI
             {
                 string name = Array.Find(ControlNames.ToArray(), elem => elem.Equals(allCustomBinds[i].ControlName.ToLower()));
 
+                // basically if "name" is found then that means it found a duplicate customBind in the
+                // __instance.remappableKeys list. That's no bueno, so to stop that,
+                // skip this iteration and stop it from adding the already existing customBind
                 if (string.IsNullOrEmpty(name) == false) continue;
                 __instance.remappableKeys.Insert(0, allCustomBinds[i]);
             }
