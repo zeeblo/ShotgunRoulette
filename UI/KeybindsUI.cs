@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using HarmonyLib;
+﻿using HarmonyLib;
 using ShotgunRoulette.Players;
-using TMPro;
 using UnityEngine.InputSystem;
-using UnityEngine;
-using System.Data;
-using System.Collections;
-using Dissonance;
 
 namespace ShotgunRoulette.UI
 {
