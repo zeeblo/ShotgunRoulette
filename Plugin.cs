@@ -29,11 +29,14 @@ namespace ShotgunRoulette
         public static System.Random random = new System.Random();
         public static int rouletteNumber = random.Next(1, 5);
         public static int randomDamage = random.Next(95, 145);
+        public static List<ConfigEntry<string>> AllHotkeys = new List<ConfigEntry<string>>();
 
 
         private void Awake()
         {
-            gunRotationBind = Config.Bind("Gameplay Controls", "Gun Rotation", "h", "Point the gun at yourself");
+            gunRotationBind = Config.Bind("Gameplay Controls", "Aim at you", "h", "Point the gun at yourself");
+            AllHotkeys.Add(gunRotationBind);
+
             PatchAll();
             Controls.InitControls();
 

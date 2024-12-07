@@ -18,7 +18,7 @@ namespace ShotgunRoulette.Players
                 return;
             }
 
-            InputAction gunRotation = userControls.AddAction("gunRotation", InputActionType.Button, binding: "<Keyboard>/" + Plugin.gunRotationBind.Value);
+            InputAction gunRotation = userControls.AddAction("aim at you", InputActionType.Button, binding: "<Keyboard>/" + Plugin.gunRotationBind.Value);
             gunRotation.performed += GunRotation_performed;
             userControls.Enable();
 
