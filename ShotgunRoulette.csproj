@@ -9,9 +9,6 @@
 		<LangVersion>latest</LangVersion>
 	</PropertyGroup>
 	<ItemGroup>
-	  <None Remove="UI\KeybindsUI.cs~RF15f91a4e.TMP" />
-	</ItemGroup>
-	<ItemGroup>
 		<PackageReference Include="BepInEx.Core" Version="5.4.21" PrivateAssets="all" />
 		<PackageReference Include="BepInEx.Analyzers" Version="1.0.8" PrivateAssets="all" />
 		<PackageReference Include="BepInEx.PluginInfoProps" Version="2.1.0" />
