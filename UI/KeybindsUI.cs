@@ -9,7 +9,7 @@ namespace ShotgunRoulette.UI
     internal class KeybindsUI
     {
         private static List<RemappableKey> allCustomBinds = new List<RemappableKey>();
-        private static bool addedCustomBinds = false;
+        private static List<string> ControlNames = new List<string>();
 
         public static void AddCustomBinds()
         {
@@ -36,14 +36,19 @@ namespace ShotgunRoulette.UI
         {
             __instance.maxVertical += 1f;
             Controls.userControls.Disable();
-
-            if (!addedCustomBinds)
+            
+            for (int i = 0; i < __instance.remappableKeys.Count; i++)
             {
-                for (int i = 0; i < allCustomBinds.Count; i++)
-                {
-                    __instance.remappableKeys.Insert(0, allCustomBinds[i]);
-                }
-                addedCustomBinds = true;
+                ControlNames.Add(__instance.remappableKeys[i].ControlName.ToLower());
+            }
+
+
+            for (int i = 0; i < allCustomBinds.Count; i++)
+            {
+                string name = Array.Find(ControlNames.ToArray(), elem => elem.Equals(allCustomBinds[i].ControlName.ToLower()));
+
+                if (string.IsNullOrEmpty(name) == false) continue;
+                __instance.remappableKeys.Insert(0, allCustomBinds[i]);
             }
 
             return true;
@@ -83,13 +88,13 @@ namespace ShotgunRoulette.UI
         [HarmonyPostfix]
         private static void KepOnDisablePatch()
         {
+            ControlNames.Clear();
             if (Controls.userControls.enabled == false)
             {
                 Controls.userControls.Enable();
             }
 
         }
-
 
 
     }
