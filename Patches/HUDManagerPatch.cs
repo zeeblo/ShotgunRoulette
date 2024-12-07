@@ -7,6 +7,9 @@ namespace ShotgunRoulette.Patches
     internal class HUDManagerPatch
     {
 
+        /// <summary>
+        /// When user presses [RMB] they'll toggle the roulette mode
+        /// </summary>
         [HarmonyPatch(nameof(HUDManager.PingScan_performed))]
         [HarmonyPrefix]
         private static bool Roulette()
