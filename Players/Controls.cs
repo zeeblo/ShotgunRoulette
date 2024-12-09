@@ -1,4 +1,5 @@
-﻿using ShotgunRoulette.UI;
+﻿using ShotgunRoulette.Network;
+using ShotgunRoulette.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -30,11 +31,12 @@ namespace ShotgunRoulette.Players
 
         private static void GunRotation_performed(InputAction.CallbackContext context)
         {
+            Plugin.mls.LogInfo(">> below gunrotation attempt");
             if (GameNetworkManager.Instance.localPlayerController != null)
             {
                 Plugin.ToggleGunRotation(GameNetworkManager.Instance.localPlayerController);
             }
-            
+
         }
 
 
