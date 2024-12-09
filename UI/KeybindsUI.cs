@@ -77,7 +77,6 @@ namespace ShotgunRoulette.UI
                     Controls.userControls.FindAction(Plugin.AllHotkeys[i].Definition.Key.ToLower()).ApplyBindingOverride($"<Keyboard>/{optionUI.currentlyUsedKeyText.text.ToLower()}");
                     break;
 
-
                 }
             }
 

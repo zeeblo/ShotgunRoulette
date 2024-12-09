@@ -38,7 +38,6 @@ namespace ShotgunRoulette.Patches
 
                 if (PlayerControllerBPatch.rouletteMode)
                 {
-                    Plugin.mls.LogInfo(">>> Entering Roulette");
                     if (Plugin.rouletteNumber == 1)
                     {
                         RotatePlayer();

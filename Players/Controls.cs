@@ -31,7 +31,6 @@ namespace ShotgunRoulette.Players
 
         private static void GunRotation_performed(InputAction.CallbackContext context)
         {
-            Plugin.mls.LogInfo(">> below gunrotation attempt");
             if (GameNetworkManager.Instance.localPlayerController != null)
             {
                 Plugin.ToggleGunRotation(GameNetworkManager.Instance.localPlayerController);

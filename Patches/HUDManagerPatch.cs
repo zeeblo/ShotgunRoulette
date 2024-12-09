@@ -20,7 +20,6 @@ namespace ShotgunRoulette.Patches
             {
                 Plugin.rouletteNumber = Plugin.random.Next(1, 5);
                 Plugin.randomDamage = Plugin.random.Next(95, 145);
-                Plugin.mls.LogInfo($">>> Random Number: {Plugin.rouletteNumber} | Dmg: {Plugin.randomDamage}");
 
                 PlayerControllerBPatch.rouletteMode = !PlayerControllerBPatch.rouletteMode;
 

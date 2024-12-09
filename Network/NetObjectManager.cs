@@ -38,7 +38,6 @@ namespace ShotgunRoulette.Network
 
         public static void RequestFromPlayer(ulong plrID, int itemPos, UnityEngine.Vector3 gunRotation)
         {
-            Plugin.mls.LogInfo(">> in sendEvent 1");
             if (NetHandler.instance == null) return;
 
             if (NetworkManager.Singleton.IsHost || NetworkManager.Singleton.IsServer)
@@ -51,8 +50,6 @@ namespace ShotgunRoulette.Network
                 // client requesting info
                 NetHandler.instance.RotateGunServerRpc(plrID, itemPos, gunRotation);
             }
-
-            Plugin.mls.LogInfo(">> in sendEvent 3");
             
         }
 
