@@ -34,6 +34,13 @@ namespace ShotgunRoulette.Utils
             return true;
         }
 
+        [HarmonyPatch(nameof(ShotgunItem.Update))]
+        [HarmonyPostfix]
+        private static void UpdatePatch(ShotgunItem __instance)
+        {
+            __instance.shellsLoaded = 2;
+        }
+
         #endregion NutcrackerPatch
 
 
