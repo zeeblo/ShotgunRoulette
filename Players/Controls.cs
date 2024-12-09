@@ -36,7 +36,6 @@ namespace ShotgunRoulette.Players
             {
                 Plugin.ToggleGunRotation(GameNetworkManager.Instance.localPlayerController);
             }
-
         }
 
 

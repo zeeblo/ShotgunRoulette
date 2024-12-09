@@ -14,11 +14,6 @@ namespace ShotgunRoulette.Patches
         private static void UpdatePatch(PlayerControllerB __instance)
         {
 
-            if (Keyboard.current.jKey.wasPressedThisFrame)
-            {
-                Plugin.SpawnShotgun();
-            }
-
             if (Plugin.gunIsOnFace)
             {
                 HUDManager.Instance.ShakeCamera(ScreenShakeType.Small);

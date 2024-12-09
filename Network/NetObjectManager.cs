@@ -38,7 +38,6 @@ namespace ShotgunRoulette.Network
         [HarmonyPostfix, HarmonyPatch(typeof(RoundManager), nameof(RoundManager.GenerateNewFloor))]
         static void SubscribeToHandler()
         {
-            Plugin.mls.LogInfo("yurp, this is called");
             NetHandler.LevelEvent += ReceivedEventFromServer;
         }
 

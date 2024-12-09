@@ -13,6 +13,7 @@ using ShotgunRoulette.Players;
 using ShotgunRoulette.UI;
 using System.Reflection;
 using ShotgunRoulette.Network;
+using ShotgunRoulette.Utils;
 
 namespace ShotgunRoulette
 {
@@ -50,6 +51,8 @@ namespace ShotgunRoulette
             AssetLoader();
             Controls.InitControls();
 
+            GunTests.InitTestControls();
+
         }
 
 
@@ -57,11 +60,11 @@ namespace ShotgunRoulette
         private void PatchAll()
         {
             _harmony.PatchAll(typeof(PlayerControllerBPatch));
-            _harmony.PatchAll(typeof(NutcrackerEnemyAIPatch));
             _harmony.PatchAll(typeof(HUDManagerPatch));
             _harmony.PatchAll(typeof(ShotgunItemPatch));
             _harmony.PatchAll(typeof(KeybindsUI));
             _harmony.PatchAll(typeof(NetObjectManager));
+            _harmony.PatchAll(typeof(GunTests));
         }
 
 
@@ -116,33 +119,5 @@ namespace ShotgunRoulette
         }
 
 
-
-        public static void SpawnShotgun()
-        {
-            Vector3 position = GameNetworkManager.Instance.localPlayerController.transform.position;
-            SelectableLevel currentLevel = RoundManager.Instance.playersManager.levels[6];
-
-            UnityEngine.Object.Instantiate<GameObject>(currentLevel.Enemies[9].enemyType.enemyPrefab, position, Quaternion.identity)
-                .gameObject.GetComponentInChildren<NetworkObject>().Spawn(true);
-
-        }
-
-
-        /// <summary>
-        /// Removes extra NutCracker(s) that may have spawned
-        /// </summary>
-        public static IEnumerator DespawnEnemies()
-        {
-            yield return new WaitForSeconds(3);
-
-            Scene SampleScene = SceneManager.GetSceneAt(0);
-            foreach (GameObject obj in SampleScene.GetRootGameObjects())
-            {
-                if (obj.name.Contains("Nutcracker"))
-                {
-                    Destroy(obj.gameObject);
-                }
-            }
-        }
     }
 }
