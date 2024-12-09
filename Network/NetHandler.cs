@@ -9,11 +9,12 @@ namespace ShotgunRoulette.Network
         {
             LevelEvent = null;
 
+            /*
             if (NetworkManager.Singleton.IsHost || NetworkManager.Singleton.IsServer)
             {
                 instance?.gameObject.GetComponent<NetworkObject>().Despawn();
             }
-                
+            */
             instance = this;
 
             base.OnNetworkSpawn();

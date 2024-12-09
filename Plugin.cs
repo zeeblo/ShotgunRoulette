@@ -37,7 +37,6 @@ namespace ShotgunRoulette
         public static string BundleDir = MainDir + "\\Assets\\Assetbundles\\roulette";
         public static AssetBundle myBundle = AssetBundle.LoadFromFile(BundleDir);
         public static AudioClip? SFX_revolverSpin;
-        public static GameObject? networkPrefab;
 
 
 
@@ -89,7 +88,7 @@ namespace ShotgunRoulette
         {
             PlayerControllerB localplayer = GameNetworkManager.Instance.localPlayerController;
             if (__instance.ItemSlots[__instance.currentItemSlot] == null) return false;
-            if (__instance.ItemSlots[__instance.currentItemSlot].GetComponent<ShotgunItem>() != null) return false;
+            if (__instance.ItemSlots[__instance.currentItemSlot].GetComponent<ShotgunItem>() == null) return false;
 
             Plugin.gunIsOnFace = !Plugin.gunIsOnFace;
             

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Unity.Netcode;
+﻿using Unity.Netcode;
 using HarmonyLib;
 using UnityEngine;
 
@@ -10,16 +7,20 @@ namespace ShotgunRoulette.Network
     [HarmonyPatch]
     internal class NetObjectManager
     {
+        static GameObject networkPrefab;
+
         [HarmonyPatch(typeof(GameNetworkManager), nameof(GameNetworkManager.Start))]
         [HarmonyPostfix]
         private static void StartPatch(GameNetworkManager __instance)
         {
-            if (Plugin.networkPrefab != null) return;
+            if (networkPrefab != null) return;
 
-            Plugin.networkPrefab = Plugin.myBundle.LoadAsset<GameObject>("NetworkManager_roulette.prefab");
-            Plugin.networkPrefab.AddComponent<NetHandler>();
-            NetworkManager.Singleton.AddNetworkPrefab(Plugin.networkPrefab);
+            networkPrefab = Plugin.myBundle.LoadAsset<GameObject>("NetworkManager_roulette.prefab");
+            networkPrefab.AddComponent<NetHandler>();
+            NetworkManager.Singleton.AddNetworkPrefab(networkPrefab);
         }
+
+        
 
         [HarmonyPatch(typeof(StartOfRound), nameof(StartOfRound.Awake))]
         [HarmonyPostfix]
@@ -27,9 +28,9 @@ namespace ShotgunRoulette.Network
         {
             if (NetworkManager.Singleton.IsHost || NetworkManager.Singleton.IsServer)
             {
-                if (Plugin.networkPrefab == null) return;
+                if (networkPrefab == null) return;
 
-                GameObject networkHandlerHost = UnityEngine.Object.Instantiate(Plugin.networkPrefab, Vector3.zero, Quaternion.identity);
+                GameObject networkHandlerHost = UnityEngine.Object.Instantiate(networkPrefab, Vector3.zero, Quaternion.identity);
                 networkHandlerHost.GetComponent<NetworkObject>().Spawn();
             }
         }
@@ -50,6 +51,7 @@ namespace ShotgunRoulette.Network
         static void ReceivedEventFromServer(string eventName)
         {
 
+            /*
             Plugin.mls.LogInfo(">> Found: ReceivedEventFromServer");
             switch (eventName)
             {
@@ -57,6 +59,7 @@ namespace ShotgunRoulette.Network
                     Plugin.mls.LogInfo("<> hello world! <>");
                     break;
             }
+            */
         }
 
         public static void RequestFromPlayer(ulong plrID, int itemPos, UnityEngine.Vector3 gunRotation)
