@@ -36,32 +36,6 @@ namespace ShotgunRoulette.Network
         }
 
 
-        [HarmonyPostfix, HarmonyPatch(typeof(RoundManager), nameof(RoundManager.GenerateNewFloor))]
-        static void SubscribeToHandler()
-        {
-            NetHandler.LevelEvent += ReceivedEventFromServer;
-        }
-
-        [HarmonyPostfix, HarmonyPatch(typeof(RoundManager), nameof(RoundManager.DespawnPropsAtEndOfRound))]
-        static void UnsubscribeFromHandler()
-        {
-            NetHandler.LevelEvent -= ReceivedEventFromServer;
-        }
-
-        static void ReceivedEventFromServer(string eventName)
-        {
-
-            /*
-            Plugin.mls.LogInfo(">> Found: ReceivedEventFromServer");
-            switch (eventName)
-            {
-                case "hello":
-                    Plugin.mls.LogInfo("<> hello world! <>");
-                    break;
-            }
-            */
-        }
-
         public static void RequestFromPlayer(ulong plrID, int itemPos, UnityEngine.Vector3 gunRotation)
         {
             Plugin.mls.LogInfo(">> in sendEvent 1");

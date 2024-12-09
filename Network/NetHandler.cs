@@ -7,14 +7,6 @@ namespace ShotgunRoulette.Network
         
         public override void OnNetworkSpawn()
         {
-            LevelEvent = null;
-
-            /*
-            if (NetworkManager.Singleton.IsHost || NetworkManager.Singleton.IsServer)
-            {
-                instance?.gameObject.GetComponent<NetworkObject>().Despawn();
-            }
-            */
             instance = this;
 
             base.OnNetworkSpawn();
@@ -33,10 +25,9 @@ namespace ShotgunRoulette.Network
         public void RotateGunServerRpc(ulong plrID, int itemPos, UnityEngine.Vector3 gunRotation)
         {
             RotateGunClientRpc(plrID, itemPos, gunRotation);
-            //LevelEvent?.Invoke(eventName);
+
         }
 
-        public static event Action<String>? LevelEvent;
         public static NetHandler instance { get; private set; }
 
 
