@@ -1,0 +1,9 @@
+{
+    "name": "ShotgunRoulette",
+    "version_number": "0.1.0",
+    "website_url": "https://github.com/zeeblo/ShotgunRoulette",
+    "description": "Russian Roulette mod that gives you the freedom to shoot yourself with a shotgun",
+    "dependencies": [
+        "BepInEx-BepInExPack-5.4.2100"
+    ]
+}
