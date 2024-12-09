@@ -50,7 +50,7 @@ namespace ShotgunRoulette
             AssetLoader();
             Controls.InitControls();
 
-            GunTests.InitTestControls();
+            //GunTests.InitTestControls();
 
         }
 
@@ -63,7 +63,7 @@ namespace ShotgunRoulette
             _harmony.PatchAll(typeof(ShotgunItemPatch));
             _harmony.PatchAll(typeof(KeybindsUI));
             _harmony.PatchAll(typeof(NetObjectManager));
-            _harmony.PatchAll(typeof(GunTests));
+            //_harmony.PatchAll(typeof(GunTests));
         }
 
 
