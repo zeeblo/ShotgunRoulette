@@ -5,7 +5,7 @@
 		<Nullable>enable</Nullable>
 		<AssemblyName>zeeblo.ShotgunRoulette</AssemblyName>
 		<Product>ShotgunRoulette</Product>
-		<Version>0.1.0</Version>
+		<Version>0.1.1</Version>
 		<LangVersion>latest</LangVersion>
 	</PropertyGroup>
 	<ItemGroup>

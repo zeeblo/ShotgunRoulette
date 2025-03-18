@@ -1,19 +1,14 @@
 ﻿using HarmonyLib;
 using BepInEx;
 using BepInEx.Logging;
-
 using UnityEngine;
 using ShotgunRoulette.Patches;
-using Unity.Netcode;
-using UnityEngine.SceneManagement;
-using System.Collections;
 using GameNetcodeStuff;
 using BepInEx.Configuration;
 using ShotgunRoulette.Players;
 using ShotgunRoulette.UI;
 using System.Reflection;
 using ShotgunRoulette.Network;
-using ShotgunRoulette.Utils;
 
 namespace ShotgunRoulette
 {
@@ -22,7 +17,7 @@ namespace ShotgunRoulette
     {
         private const string MOD_GUID = "ShotgunRoulette.zeeblo.dev";
         private const string MOD_Name = "zeeblo.ShotgunRoulette";
-        private const string MOD_Version = "0.1.0";
+        private const string MOD_Version = "0.1.1";
         private readonly Harmony _harmony = new(MOD_GUID);
         public static Plugin? instance;
         internal static ManualLogSource mls = BepInEx.Logging.Logger.CreateLogSource(MOD_GUID);
@@ -34,7 +29,7 @@ namespace ShotgunRoulette
         public static int rouletteNumber = random.Next(1, 5);
         public static int randomDamage = random.Next(95, 145);
         public static string MainDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase).Replace("file:\\", "");
-        public static string BundleDir = MainDir + "\\Assets\\Assetbundles\\roulette";
+        public static string BundleDir = GetAssetPath();
         public static AssetBundle myBundle = AssetBundle.LoadFromFile(BundleDir);
         public static AudioClip? SFX_revolverSpin;
 
@@ -91,7 +86,7 @@ namespace ShotgunRoulette
             if (__instance.ItemSlots[__instance.currentItemSlot].GetComponent<ShotgunItem>() == null) return false;
 
             Plugin.gunIsOnFace = !Plugin.gunIsOnFace;
-            
+
             if (Plugin.gunIsOnFace)
             {
                 UnityEngine.Vector3 gunRotation = new UnityEngine.Vector3(0.28f, 0.28f, -0.28f);
@@ -110,6 +105,18 @@ namespace ShotgunRoulette
             return Plugin.gunIsOnFace;
         }
 
+
+        private static string GetAssetPath()
+        {
+            string firstPath = MainDir + "\\Assets\\Assetbundles\\roulette";
+            string secondPath = MainDir + "/roulette";
+
+            if (File.Exists(firstPath))
+            {
+                return firstPath;
+            }
+            return secondPath;
+        }
 
         private static void AssetLoader()
         {

@@ -34,7 +34,7 @@ namespace ShotgunRoulette.Utils
             return true;
         }
 
-        [HarmonyPatch(nameof(ShotgunItem.Update))]
+        [HarmonyPatch(typeof(ShotgunItem), nameof(ShotgunItem.Update))]
         [HarmonyPostfix]
         private static void UpdatePatch(ShotgunItem __instance)
         {

@@ -20,7 +20,7 @@ namespace ShotgunRoulette.Network
             NetworkManager.Singleton.AddNetworkPrefab(networkPrefab);
         }
 
-        
+
 
         [HarmonyPatch(typeof(StartOfRound), nameof(StartOfRound.Awake))]
         [HarmonyPostfix]
@@ -50,7 +50,7 @@ namespace ShotgunRoulette.Network
                 // client requesting info
                 NetHandler.instance.RotateGunServerRpc(plrID, itemPos, gunRotation);
             }
-            
+
         }
 
 
