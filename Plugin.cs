@@ -9,6 +9,7 @@ using ShotgunRoulette.Players;
 using ShotgunRoulette.UI;
 using System.Reflection;
 using ShotgunRoulette.Network;
+using ShotgunRoulette.Utils;
 
 namespace ShotgunRoulette
 {
@@ -17,7 +18,7 @@ namespace ShotgunRoulette
     {
         private const string MOD_GUID = "ShotgunRoulette.zeeblo.dev";
         private const string MOD_Name = "zeeblo.ShotgunRoulette";
-        private const string MOD_Version = "0.1.1";
+        private const string MOD_Version = "0.1.2";
         private readonly Harmony _harmony = new(MOD_GUID);
         public static Plugin? instance;
         internal static ManualLogSource mls = BepInEx.Logging.Logger.CreateLogSource(MOD_GUID);
@@ -45,7 +46,7 @@ namespace ShotgunRoulette
             AssetLoader();
             Controls.InitControls();
 
-            //GunTests.InitTestControls();
+            GunTests.InitTestControls();
 
         }
 
@@ -58,7 +59,7 @@ namespace ShotgunRoulette
             _harmony.PatchAll(typeof(ShotgunItemPatch));
             _harmony.PatchAll(typeof(KeybindsUI));
             _harmony.PatchAll(typeof(NetObjectManager));
-            //_harmony.PatchAll(typeof(GunTests));
+            _harmony.PatchAll(typeof(GunTests));
         }
 
 

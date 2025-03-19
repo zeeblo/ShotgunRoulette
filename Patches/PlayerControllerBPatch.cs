@@ -25,7 +25,7 @@ namespace ShotgunRoulette.Patches
 
                 string options = (Plugin.gunIsOnFace) ? $"\n Roulette Mode ({rouletteMode}) : [RMB] \n Shoot Yourself : [LMB]" : "";
                 string safety = (__instance.ItemSlots[__instance.currentItemSlot].GetComponent<ShotgunItem>().safetyOn) ? "off" : "on";
-                HUDManager.Instance.controlTipLines.Last().text = $"Turn Safety {safety} : [Q] \n Aim at you : [{Plugin.gunRotationBind?.Value}] " + options;
+                HUDManager.Instance.controlTipLines.Last().text = $"Turn Safety {safety} : [Q] \n Aim at you : [{Plugin.gunRotationBind?.Value.ToUpper()}] " + options;
             }
         }
 
