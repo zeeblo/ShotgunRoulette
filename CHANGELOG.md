@@ -1,3 +1,7 @@
+# 0.2.1
+
+- Added asset bundle back in file (oops)
+
 
 # 0.2.0
 

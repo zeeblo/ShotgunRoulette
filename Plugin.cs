@@ -18,7 +18,7 @@ namespace ShotgunRoulette
     {
         private const string MOD_GUID = "ShotgunRoulette.zeeblo.dev";
         private const string MOD_Name = "zeeblo.ShotgunRoulette";
-        private const string MOD_Version = "0.2.0";
+        private const string MOD_Version = "0.2.1";
         private readonly Harmony _harmony = new(MOD_GUID);
         public static Plugin? instance;
         internal static ManualLogSource mls = BepInEx.Logging.Logger.CreateLogSource(MOD_GUID);
