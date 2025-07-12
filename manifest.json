@@ -1,6 +1,6 @@
 {
     "name": "ShotgunRoulette",
-    "version_number": "0.1.2",
+    "version_number": "0.2.0",
     "website_url": "https://github.com/zeeblo/ShotgunRoulette",
     "description": "Russian Roulette mod that gives you the freedom to shoot yourself with a shotgun",
     "dependencies": [

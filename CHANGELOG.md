@@ -1,4 +1,9 @@
 
+# 0.2.0
+
+- Small UI Configuration Options
+
+
 # 0.1.2
 
 - Fixed custom keybinds showing as lower-cased in the tool tips

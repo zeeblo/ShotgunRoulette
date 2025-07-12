@@ -1,5 +1,6 @@
 ﻿using ShotgunRoulette.Network;
 using ShotgunRoulette.UI;
+using ShotgunRoulette.Utils;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -14,12 +15,12 @@ namespace ShotgunRoulette.Players
 
         public static void InitControls()
         {
-            if (Plugin.gunRotationBind == null)
+            if (LConfig.gunRotationBind == null)
             {
                 return;
             }
 
-            InputAction gunRotation = userControls.AddAction("aim at you", InputActionType.Button, binding: "<Keyboard>/" + Plugin.gunRotationBind.Value);
+            InputAction gunRotation = userControls.AddAction("aim at you", InputActionType.Button, binding: "<Keyboard>/" + LConfig.gunRotationBind.Value);
             gunRotation.performed += GunRotation_performed;
             userControls.Enable();
 

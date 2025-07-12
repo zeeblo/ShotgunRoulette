@@ -18,14 +18,13 @@ namespace ShotgunRoulette
     {
         private const string MOD_GUID = "ShotgunRoulette.zeeblo.dev";
         private const string MOD_Name = "zeeblo.ShotgunRoulette";
-        private const string MOD_Version = "0.1.2";
+        private const string MOD_Version = "0.2.0";
         private readonly Harmony _harmony = new(MOD_GUID);
         public static Plugin? instance;
         internal static ManualLogSource mls = BepInEx.Logging.Logger.CreateLogSource(MOD_GUID);
         //public static bool rouletteEnabled = false;
         public static bool gunIsOnFace = false;
         public static List<ConfigEntry<string>> AllHotkeys = new List<ConfigEntry<string>>();
-        public static ConfigEntry<string>? gunRotationBind;
         public static System.Random random = new System.Random();
         public static int rouletteNumber = random.Next(1, 5);
         public static int randomDamage = random.Next(95, 145);
@@ -39,14 +38,13 @@ namespace ShotgunRoulette
         private void Awake()
         {
             instance = this;
-            gunRotationBind = Config.Bind("Gameplay Controls", "Aim at you", "h", "Point the gun at yourself");
-            AllHotkeys.Add(gunRotationBind);
+            LConfig.AllConfigs(Config);
             NetcodePatcher();
             PatchAll();
             AssetLoader();
             Controls.InitControls();
 
-            GunTests.InitTestControls();
+            //GunTests.InitTestControls();
 
         }
 
@@ -59,7 +57,7 @@ namespace ShotgunRoulette
             _harmony.PatchAll(typeof(ShotgunItemPatch));
             _harmony.PatchAll(typeof(KeybindsUI));
             _harmony.PatchAll(typeof(NetObjectManager));
-            _harmony.PatchAll(typeof(GunTests));
+            //_harmony.PatchAll(typeof(GunTests));
         }
 
 

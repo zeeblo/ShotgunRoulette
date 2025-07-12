@@ -1,5 +1,6 @@
 ﻿using GameNetcodeStuff;
 using HarmonyLib;
+using ShotgunRoulette.Utils;
 using UnityEngine.InputSystem;
 
 namespace ShotgunRoulette.Patches
@@ -23,9 +24,12 @@ namespace ShotgunRoulette.Patches
             {
                 if (__instance.ItemSlots[__instance.currentItemSlot].playerHeldBy.playerClientId != GameNetworkManager.Instance.localPlayerController.playerClientId) return;
 
-                string options = (Plugin.gunIsOnFace) ? $"\n Roulette Mode ({rouletteMode}) : [RMB] \n Shoot Yourself : [LMB]" : "";
+                string rouletteModeUI = (LConfig.defaultShowRoulette?.Value == true) ? $"\n Roulette Mode ({rouletteMode}) : [RMB]" : "";
+                string suicideUI = (LConfig.defaultShowSuicide?.Value == true) ? "\n Shoot Yourself : [LMB]" : "";
+
+                string options = (Plugin.gunIsOnFace) ? $"{rouletteModeUI} {suicideUI}" : "";
                 string safety = (__instance.ItemSlots[__instance.currentItemSlot].GetComponent<ShotgunItem>().safetyOn) ? "off" : "on";
-                HUDManager.Instance.controlTipLines.Last().text = $"Turn Safety {safety} : [Q] \n Aim at you : [{Plugin.gunRotationBind?.Value.ToUpper()}] " + options;
+                HUDManager.Instance.controlTipLines.Last().text = $"Turn Safety {safety} : [Q] \n Aim at you : [{LConfig.gunRotationBind?.Value.ToUpper()}] " + options;
             }
         }
 
